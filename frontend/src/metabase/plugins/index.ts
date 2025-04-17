@@ -625,7 +625,9 @@ export const PLUGIN_CONTENT_TRANSLATION = {
     // In OSS, the input is not translated
     const contentTranslationFunction: ContentTranslationFunction = <T>(
       arg: T,
-    ) => arg;
+    ) => {
+      return arg;
+    };
     return contentTranslationFunction;
   },
 };

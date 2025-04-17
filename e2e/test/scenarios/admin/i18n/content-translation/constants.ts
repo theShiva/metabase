@@ -56,3 +56,5 @@ stringTranslatedTwice.push({
   msgid: "Title",
   msgstr: "Überschrift",
 });
+
+export const columnNamesWithTypeText = ["Title", "Category", "Vendor"];

@@ -15,6 +15,7 @@ import "./caching";
 import "./collections";
 import "./content_translation";
 import "./content_verification";
+import "./content_translation";
 import "./database_routing";
 import "./whitelabel";
 import "./embedding";
