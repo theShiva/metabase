@@ -21,6 +21,7 @@ export const uploadTranslationDictionary = (rows: DictionaryArray) => {
     },
     { force: true },
   );
+  cy.wait("@uploadDictionary");
 };
 
 export const assertOnlyTheseTranslationsAreStored = (rows: DictionaryArray) => {

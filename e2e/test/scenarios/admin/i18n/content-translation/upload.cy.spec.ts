@@ -18,6 +18,12 @@ const { H } = cy;
 
 describe("scenarios > admin > localization > content translation", () => {
   describe("oss", () => {
+    before(() => {
+      cy.intercept("POST", "api/ee/content-translation/upload-dictionary").as(
+        "uploadDictionary",
+      );
+    });
+
     beforeEach(() => {
       H.restore();
       cy.signInAsAdmin();
