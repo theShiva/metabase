@@ -5,7 +5,6 @@ import {
   useCallback,
   useContext,
   useEffect,
-  useState,
 } from "react";
 import { usePrevious, useUnmount } from "react-use";
 import { isEqual, isObject, noop } from "underscore";
@@ -120,8 +119,6 @@ const DashboardContextProviderInner = ({
 }: PropsWithChildren<ContextProps>) => {
   const dispatch = useDispatch();
 
-  const [isInitialized, setIsInitialized] = useState(false);
-
   const previousDashboard = usePrevious(dashboard);
   const previousDashboardId = usePrevious(dashboardId);
   const previousTabId = usePrevious(selectedTabId);
@@ -142,21 +139,12 @@ const DashboardContextProviderInner = ({
         },
       });
 
-      if (isSuccessfulFetchDashboardResult(result)) {
-        onLoad?.(result.payload.dashboard);
-      } else if (
-        isFailedFetchDashboardResult(result) &&
-        !isCancelledFetchDashboardResult(result)
-      ) {
-        onError?.(result);
-      }
+      return result;
     },
     [
       fetchDashboard,
       initialize,
       isNavigatingBackToDashboard,
-      onError,
-      onLoad,
       parameterQueryParams,
     ],
   );
@@ -164,7 +152,17 @@ const DashboardContextProviderInner = ({
   useEffect(() => {
     const hasDashboardChanged = dashboardId !== previousDashboardId;
     if (hasDashboardChanged) {
-      handleLoadDashboard(dashboardId).then(() => setIsInitialized(true));
+      handleLoadDashboard(dashboardId)
+        .then((result) => {
+          if (isSuccessfulFetchDashboardResult(result)) {
+            onLoad?.(result);
+          } else if (isFailedFetchDashboardResult(result)) {
+            onError?.(result);
+          }
+        })
+        .catch((err) => {
+          onError?.(err);
+        });
       return;
     }
 
@@ -179,17 +177,28 @@ const DashboardContextProviderInner = ({
       previousParameterValues,
     );
 
+    let cardResult: Promise<void> | undefined;
     if (hasDashboardLoaded) {
-      fetchDashboardCardData({ reload: false, clearCache: true });
+      cardResult = fetchDashboardCardData({ reload: false, clearCache: true });
     } else if (hasTabChanged || hasParameterValueChanged) {
-      fetchDashboardCardData();
+      cardResult = fetchDashboardCardData();
+    }
+    if (cardResult) {
+      cardResult
+        .then(() => {
+          onLoad?.({ payload: { dashboard } });
+        })
+        .catch((err) => {
+          onError?.(err);
+        });
     }
   }, [
     dashboard,
     dashboardId,
     fetchDashboardCardData,
     handleLoadDashboard,
-    isInitialized,
+    onError,
+    onLoad,
     parameterValues,
     previousDashboard,
     previousDashboardId,

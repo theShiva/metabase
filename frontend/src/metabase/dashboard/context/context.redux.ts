@@ -114,7 +114,6 @@ const mapDispatchToProps = {
   setParameterType,
   setParameterValue,
   setParameterValueToDefault,
-  navigateToNewCardFromDashboard,
   setParameterDefaultValue,
   setParameterRequired,
   setParameterTemporalUnits,
