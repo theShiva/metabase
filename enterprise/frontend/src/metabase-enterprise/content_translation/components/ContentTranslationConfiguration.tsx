@@ -135,7 +135,7 @@ export const ContentTranslationConfiguration = () => {
             ),
           }}
         >
-          {t`You can upload a translation dictionary. We'll use this to translate user-provided strings (like question names) into the viewer's language. Your translation dictionary should be a CSV with three columns: Locale code, String, Translation. Supported locale codes are **listed here**.  It won't affect built-in strings. Uploading a new dictionary will replace the existing dictionary.`}
+          {t`You can upload a translation dictionary. We'll use this to translate user-provided strings (like question names) into the viewer's language. (Built-in strings won't be affected.) Your translation dictionary should be a CSV with three columns: Locale code, String, Translation. Supported locale codes are **listed here**. Uploading a new dictionary will replace the existing translations.`}
         </Markdown>
       </Text>
       {!!localeToTranslationCountArray.length && (
