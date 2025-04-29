@@ -33,13 +33,10 @@ describe("scenarios > admin > localization > content translation", () => {
   });
 
   describe("ee", () => {
-    before(() => {
+    beforeEach(() => {
       cy.intercept("POST", "api/ee/content-translation/upload-dictionary").as(
         "uploadDictionary",
       );
-    });
-
-    beforeEach(() => {
       H.restore();
       cy.signInAsAdmin();
       H.setTokenFeatures("all");
