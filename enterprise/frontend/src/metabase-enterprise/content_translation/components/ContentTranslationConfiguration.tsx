@@ -8,10 +8,6 @@ import {
 } from "react";
 import { c, msgid, t } from "ttag";
 
-import {
-  useListContentTranslationsQuery,
-  useUploadContentTranslationDictionaryMutation,
-} from "metabase/api/content-translation";
 import { UploadInput } from "metabase/components/upload";
 import ExternalLink from "metabase/core/components/ExternalLink";
 import Markdown from "metabase/core/components/Markdown";
@@ -19,6 +15,10 @@ import { useSelector } from "metabase/lib/redux";
 import { getDocsUrl } from "metabase/selectors/settings";
 import { getAvailableLocales } from "metabase/setup/selectors";
 import { Button, Group, Icon, List, Stack, Text } from "metabase/ui";
+import {
+  useListContentTranslationsQuery,
+  useUploadContentTranslationDictionaryMutation,
+} from "metabase-enterprise/api";
 
 export const ContentTranslationConfiguration = () => {
   const [uploadContentTranslationDictionary] =

@@ -1,7 +1,7 @@
+import { invalidateTags, listTag } from "metabase/api/tags";
 import type { DictionaryArray } from "metabase/i18n/types";
 
-import { Api } from "./api";
-import { invalidateTags, listTag } from "./tags";
+import { EnterpriseApi } from "./api";
 
 type ListContentTranslationsRequest = {
   locale: string;
@@ -11,7 +11,7 @@ type UploadContentTranslationDictionaryRequest = {
   file: File;
 };
 
-export const contentTranslationApi = Api.injectEndpoints({
+export const contentTranslationApi = EnterpriseApi.injectEndpoints({
   endpoints: (builder) => {
     return {
       listContentTranslations: builder.query<
