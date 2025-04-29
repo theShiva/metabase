@@ -177,7 +177,7 @@ describe("scenarios > admin > localization > content translation", () => {
           // Index 3 in the rows array corresponds to the 4th row of data,
           // which is the 5th row in the CSV (because it has a header row)
           cy.findByTestId("content-localization-setting").findByText(
-            new RegExp("Row 5.*exceeds maximum length", "i"),
+            /Row 5.*exceeds maximum length/,
           );
         });
       });

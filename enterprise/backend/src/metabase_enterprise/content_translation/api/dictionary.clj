@@ -11,33 +11,30 @@
 
 (set! *warn-on-reflection* true)
 
-;; HTTP status constants
 (def ^:private http-status-unprocessable 422)
 
-;; Validation constants
 (def ^:private max-string-length 255)
 
-;; Helper functions for validation
 (defn- row-has-correct-number-of-fields
   "Checks if a row has the expected format with exactly 3 columns."
   [row]
   (and (vector? row) (= (count row) 3)))
 
 (defn- collect-row-format-error
-  "Checks if a row has the expected format and returns an error message if not."
+  "Returns an error message if a row does not have the expected format."
   [row-index row]
   (when-not (row-has-correct-number-of-fields row)
     (tru "Row {0}: Invalid format. Expected exactly 3 columns (Language, String, Translation)" (+ row-index 2))))
 
 (defn- collect-locale-error
-  "Checks if a locale is valid and returns an error message if not."
+  "Returns an error message if a row does not have a valid locale."
   [row-index locale]
   (when (and (not (str/blank? locale))
              (not (i18n/available-locale? locale)))
     (tru "Row {0}: Invalid locale: {1}" (+ row-index 2) locale)))
 
 (defn- collect-duplication-error
-  "Checks if this translation key has already been seen in the file."
+  "Returns an error message if this translation key has already been seen in the file. A translation key is a string like 'de,Category'"
   [seen-keys translation-key row-index locale trimmed-msgid]
   (when (contains? seen-keys translation-key)
     (tru "Row {0}: The string \"{1}\" is translated into locale \"{2}\" earlier in the file"
