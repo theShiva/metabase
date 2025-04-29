@@ -70,7 +70,10 @@ export const popState = createThunkAction(
           await dispatch(initializeQB(location, {}));
         } else {
           await dispatch(
-            setCardAndRun(location.state.card, { shouldUpdateUrl: false }),
+            setCardAndRun(location.state.card, {
+              shouldUpdateUrl: false,
+              updateCard: false,
+            }),
           );
           await dispatch(setCurrentState(location.state));
           await dispatch(resetUIControls());

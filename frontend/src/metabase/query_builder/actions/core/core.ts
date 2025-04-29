@@ -101,7 +101,7 @@ export const reloadCard = createThunkAction(RELOAD_CARD, () => {
 export const SET_CARD_AND_RUN = "metabase/qb/SET_CARD_AND_RUN";
 export const setCardAndRun = (
   nextCard: Card,
-  { shouldUpdateUrl = true } = {},
+  { shouldUpdateUrl = true, updateCard = true } = {},
 ) => {
   return async (dispatch: Dispatch, getState: GetState) => {
     // clone
@@ -117,7 +117,9 @@ export const setCardAndRun = (
         : null;
 
     // Update the card and originalCard before running the actual query
-    dispatch({ type: SET_CARD_AND_RUN, payload: { card, originalCard } });
+    if (updateCard) {
+      dispatch({ type: SET_CARD_AND_RUN, payload: { card, originalCard } });
+    }
     dispatch(runQuestionQuery({ shouldUpdateUrl }));
 
     // Load table & database metadata for the current question
