@@ -1,6 +1,7 @@
 import type {
   EnterpriseSettingKey,
   EnterpriseSettingValue,
+  EnterpriseSettings,
   SettingDefinition,
 } from "metabase-types/api";
 
@@ -38,10 +39,7 @@ export const settingsApi = Api.injectEndpoints({
       invalidatesTags: (_, error) =>
         invalidateTags(error, [tag("session-properties")]),
     }),
-    updateSettings: builder.mutation<
-      void,
-      Record<EnterpriseSettingKey, EnterpriseSettingValue>
-    >({
+    updateSettings: builder.mutation<void, Partial<EnterpriseSettings>>({
       query: (settings) => ({
         method: "PUT",
         url: `/api/setting`,
