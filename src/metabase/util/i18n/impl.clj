@@ -61,7 +61,6 @@
   [locale-or-name]
   (boolean
    (when-let [locale (locale locale-or-name)]
-     (log/info LocaleUtils/availableLocaleList)
      (LocaleUtils/isAvailableLocale locale))))
 
 (defn- available-locale-names*
