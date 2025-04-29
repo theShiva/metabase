@@ -17,6 +17,7 @@ import { navigateToNewCardFromDashboard } from "../actions";
 import type { NavigateToNewCardFromDashboardOpts } from "../components/DashCard/types";
 import type { UseAutoScrollToDashcardResult } from "../hooks/use-auto-scroll-to-dashcard";
 import type {
+  CancelledFetchDashboardResult,
   DashboardFullscreenControls,
   DashboardRefreshPeriodControls,
   EmbedDisplayParams,
