@@ -2,6 +2,7 @@
   "Endpoints relating to the translation of user-generated content"
   (:require
    [metabase-enterprise.content-translation.api.dictionary :as dictionary]
+   [metabase-enterprise.content-translation.models :as ct]
    [metabase.api.macros :as api.macros]
    [metabase.api.routes.common :refer [+auth]]
    [metabase.util.i18n :refer [tru]]
@@ -54,8 +55,8 @@
   [_route-params query-params _body]
   (let [locale (:locale query-params)]
     (if locale
-      {:data (dictionary/get-translations locale)}
-      {:data (dictionary/get-translations)})))
+      {:data (ct/get-translations locale)}
+      {:data (ct/get-translations)})))
 
 (def ^{:arglists '([request respond raise])} routes
   "`/api/ee/content-translation` routes."

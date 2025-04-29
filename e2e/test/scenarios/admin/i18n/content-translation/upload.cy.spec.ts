@@ -174,8 +174,9 @@ describe("scenarios > admin > localization > content translation", () => {
           const rows = structuredClone(germanFieldNames);
           rows[3][column] = longCSVCell;
           uploadTranslationDictionary(rows);
-          // Index 3 in the rows array corresponds to the 4th row of data,
-          // which is the 5th row in the CSV (because it has a header row)
+          // Index 3 in the rows array corresponds to the 4th row of data. The
+          // 4th row of data is the 5th row in the CSV file, because the file
+          // has a header row
           cy.findByTestId("content-localization-setting").findByText(
             /Row 5.*exceeds maximum length/,
           );

@@ -53,7 +53,7 @@ export const assertAdminSummarizesTranslations = (
         cy.findByText(
           new RegExp(
             `${
-              // Escape locale names with parens
+              // Escape locale names that include parentheses
               localeName.replace(/[()]/g, "\\$&")
             }.*${count} translation`,
             "i",

@@ -10,10 +10,10 @@ export type NonEmpty<ArrayType> = ArrayType extends (infer ItemType)[]
   ? [ItemType, ...ItemType[]]
   : never;
 
-// Translations retrieved from the BE have ids
-export type RetrievedDictionaryArrayRow = DictionaryArrayRow & { id: number };
-
 export type ContentTranslationFunction = <T>(msgid: T) => string | T;
+
+/** Translations retrieved from the BE have ids */
+export type RetrievedDictionaryArrayRow = DictionaryArrayRow & { id: number };
 
 export type DictionaryResponse = {
   data: RetrievedDictionaryArrayRow[];

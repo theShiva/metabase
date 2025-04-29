@@ -124,10 +124,3 @@
                           {:locale locale
                            :msgid trimmed-msgid
                            :msgstr trimmed-msgstr}))))))))
-
-(defn get-translations
-  "Get translations, optionally filtered by locale."
-  ([]
-   (ct/get-translations))
-  ([locale]
-   (ct/get-translations locale)))
