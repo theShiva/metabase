@@ -47,6 +47,7 @@
             :cache_granular_controls        true
             :cache_preemptive               true
             :config_text_file               true
+            :content_translation            true
             :content_verification           true
             :dashboard_subscription_filters true
             :disable_password_login         true
