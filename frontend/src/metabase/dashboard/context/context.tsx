@@ -37,7 +37,7 @@ type OwnProps = {
   parameterQueryParams?: Query;
   onLoad?: (dashboard: Dashboard) => void;
   onError?: (error: FailedFetchDashboardResult) => void;
-  onLoadWithoutCards?: (result: SuccessfulFetchDashboardResult) => void;
+  onLoadWithoutCards?: (dashboard: Dashboard) => void;
   navigateToNewCardFromDashboard?: (
     opts: NavigateToNewCardFromDashboardOpts,
   ) => void;
@@ -155,7 +155,7 @@ const DashboardContextProviderInner = ({
       handleLoadDashboard(dashboardId)
         .then((result) => {
           if (isSuccessfulFetchDashboardResult(result)) {
-            onLoad?.(result);
+            onLoad?.(result.payload.dashboard);
           } else if (isFailedFetchDashboardResult(result)) {
             onError?.(result);
           }
@@ -186,7 +186,7 @@ const DashboardContextProviderInner = ({
     if (cardResult) {
       cardResult
         .then(() => {
-          onLoad?.({ payload: { dashboard } });
+          onLoad?.(dashboard);
         })
         .catch((err) => {
           onError?.(err);
